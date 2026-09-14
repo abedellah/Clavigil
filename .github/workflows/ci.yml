@@ -1,0 +1,102 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    name: Lint and types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff mypy
+      - run: ruff check src tests
+      - run: ruff format --check src tests
+      - run: mypy src
+
+  security:
+    name: Security scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install bandit
+      # No "|| true". A finding fails the job. That is the point of a gate.
+      - run: bandit -r src -ll
+      - name: Secret scanning
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  unit:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest -v -m "not integration"
+
+  integration:
+    name: End-to-end provisioning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Start the stack
+        run: |
+          cp .env.example .env
+          docker compose up -d
+
+      - name: Wait for Keycloak
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:8080/health/ready >/dev/null 2>&1; then
+              echo "ready"; exit 0
+            fi
+            sleep 5
+          done
+          docker compose logs keycloak
+          exit 1
+
+      - run: pip install -r requirements.txt
+
+      - run: python src/main.py init
+
+      # 1. Before remediation: the four planted anomalies must be detected.
+      - name: Detect the planted anomalies
+        run: pytest -v -m "pre_sync"
+
+      - run: python src/main.py sync
+
+      # 2. After remediation: the lifecycle outcomes must hold and the
+      #    anomalies must be gone. Four findings, then zero. If provisioning
+      #    or reconciliation regresses, one of these moves and the build
+      #    goes red. This is the executable proof that the engine works.
+      - name: Verify the remediated state
+        run: pytest -v -m "post_sync"
+
+      - name: Produce the reconciliation report
+        run: python src/main.py report
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reconciliation-report
+          path: reports/
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose logs

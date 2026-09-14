@@ -1,0 +1,28 @@
+[project]
+name = "iam-lab"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# SIM108 pousse a remplacer if/else par un operateur ternaire. Dans le code de
+# regles metier, le if/else explicite se lit mieux et se relit mieux en revue.
+ignore = ["SIM108"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+    "integration: requires the docker compose stack to be running",
+    "pre_sync: runs against the seeded database, before remediation",
+    "post_sync: runs after a full JML cycle",
+]
