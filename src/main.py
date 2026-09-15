@@ -11,20 +11,12 @@ python src/main.py status        show what is currently provisioned
 from __future__ import annotations
 
 import sys
+from collections.abc import Callable
 
 import lifecycle
 import reconcile
 from config import db_cursor
 from targets import KeycloakTarget, LdapTarget
-
-CHECKS = (
-    ("Comptes orphelins", reconcile.find_orphan_accounts, True),
-    ("Comptes dormants", reconcile.find_dormant_accounts, False),
-    ("Ecarts d'habilitations", reconcile.find_entitlement_drift, True),
-    ("Violations SoD", reconcile.find_sod_violations, False),
-    ("Contrats expires", reconcile.find_expired_contracts, False),
-    ("Sorties non traitees", reconcile.find_leaver_failures, False),
-)
 
 
 def cmd_init() -> None:
@@ -54,9 +46,17 @@ def cmd_sync() -> None:
 
 def cmd_reconcile() -> None:
     ldap, keycloak = LdapTarget(), KeycloakTarget()
+    checks: list[tuple[str, Callable[[], list[dict]]]] = [
+        ("Comptes orphelins", lambda: reconcile.find_orphan_accounts(ldap, keycloak)),
+        ("Comptes dormants", reconcile.find_dormant_accounts),
+        ("Ecarts d'habilitations", lambda: reconcile.find_entitlement_drift(ldap, keycloak)),
+        ("Violations SoD", reconcile.find_sod_violations),
+        ("Contrats expires", reconcile.find_expired_contracts),
+        ("Sorties non traitees", reconcile.find_leaver_failures),
+    ]
     total = 0
-    for label, fn, needs_targets in CHECKS:
-        rows = fn(ldap, keycloak) if needs_targets else fn()
+    for label, fn in checks:
+        rows = fn()
         total += len(rows)
         print(f"  {label:<24} {len(rows)} constatation(s)")
         for row in rows:
@@ -96,7 +96,7 @@ def main() -> int:
         print(__doc__)
         return 1
     command, args = sys.argv[1], sys.argv[2:]
-    handlers = {
+    handlers: dict[str, Callable[..., None]] = {
         "init": cmd_init,
         "sync": cmd_sync,
         "reconcile": cmd_reconcile,
