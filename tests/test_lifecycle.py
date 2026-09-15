@@ -63,11 +63,11 @@ def test_mobilite_retire_le_role_du_service_quitte(active_roles):
 
 
 def test_role_accorde_manuellement_survit_a_la_mobilite(active_roles):
-    """R_ADMIN_AD a ete accorde par une personne, pas par regle automatique.
+    """R_COMMERCIAL a ete accorde par une personne, pas par regle automatique.
 
     Les roles demandes se revoquent par recertification, pas par la mobilite.
     """
-    assert "R_ADMIN_AD" in active_roles["P0008"]
+    assert "R_COMMERCIAL" in active_roles["P0008"]
 
 
 def test_contrat_echu_bascule_en_sortie():
