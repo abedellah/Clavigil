@@ -1,4 +1,6 @@
-# IAM Lab — gouvernance des identités et des accès
+# Clavigil — gouvernance des identités et des accès
+
+> Gouvernance du cycle de vie des identités, de l'arrivée au départ.
 
 Laboratoire IAM auto-hébergé : provisioning automatisé du cycle de vie des
 identités (arrivée / mobilité / départ) depuis un référentiel RH vers un

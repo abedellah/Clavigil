@@ -6,6 +6,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+- Project renamed from `iam-lab` to Clavigil.
+
 ### Added
 - `src/demo_api.py` — protected demo API validating Keycloak OIDC tokens:
   RS256 signature via JWKS, issuer, audience and expiry, plus group-based
