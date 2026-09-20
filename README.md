@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.svg" alt="Clavigil, gouvernance du cycle de vie des identités" width="100%">
+</p>
+
 # Clavigil — gouvernance des identités et des accès
 
 > Gouvernance du cycle de vie des identités, de l'arrivée au départ.

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="1200" height="260" role="img" aria-label="Clavigil, Gouvernance du cycle de vie des identités">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#08172E"/><stop offset="1" stop-color="#16407A"/></linearGradient>
+    <linearGradient id="accent" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#60A5FA"/></linearGradient>
+    <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="64" y2="64"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#60A5FA"/></linearGradient>
+    <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2DD4BF" stop-opacity="0"/><stop offset="0.5" stop-color="#2DD4BF" stop-opacity="0.14"/><stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.05"/></pattern>
+    <clipPath id="frame"><rect width="1200" height="260" rx="18"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="260" fill="url(#bg)"/>
+    <rect width="1200" height="260" fill="url(#grid)"/>
+    <rect x="0" y="-70" width="1200" height="70" fill="url(#scan)"><animateTransform attributeName="transform" type="translate" values="0 0; 0 340" dur="7s" repeatCount="indefinite"/></rect>
+
+    <g stroke="url(#accent)" stroke-opacity="0.45" stroke-width="1.4" fill="none">
+      <line x1="1010" y1="130" x2="880" y2="52"/><line x1="1010" y1="130" x2="900" y2="215"/>
+      <line x1="1010" y1="130" x2="1150" y2="44"/><line x1="1010" y1="130" x2="1160" y2="205"/>
+      <line x1="880" y1="52" x2="950" y2="14"/><line x1="1150" y1="44" x2="1188" y2="100"/>
+    </g>
+    <g fill="#2DD4BF">
+      <circle cx="880" cy="52" r="4"><animate attributeName="r" values="3;6;3" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="900" cy="215" r="4"><animate attributeName="r" values="3;6;3" dur="3s" begin="0.8s" repeatCount="indefinite"/></circle>
+      <circle cx="1150" cy="44" r="4"><animate attributeName="r" values="3;6;3" dur="3s" begin="1.6s" repeatCount="indefinite"/></circle>
+      <circle cx="1160" cy="205" r="4"><animate attributeName="r" values="3;6;3" dur="3s" begin="2.4s" repeatCount="indefinite"/></circle>
+    </g>
+    <g fill="#60A5FA" fill-opacity="0.8"><circle cx="950" cy="14" r="3"/><circle cx="1188" cy="100" r="3"/></g>
+
+    <rect x="935" y="55" width="150" height="150" rx="30" fill="#0F2A52" stroke="url(#accent)" stroke-width="2.5"/>
+    <g transform="translate(950,70) scale(2.1)">
+    <g fill="none" stroke="url(#a)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="22" cy="32" r="9"/><line x1="31" y1="32" x2="52" y2="32"/>
+      <line x1="43" y1="32" x2="43" y2="40"/><line x1="50" y1="32" x2="50" y2="38"/></g>
+    <circle cx="22" cy="32" r="2.8" fill="#2DD4BF"/></g>
+
+    <g font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif">
+      <text x="60" y="66" font-size="14" font-weight="600" fill="#7FA6D9" letter-spacing="4">IAM</text>
+      <text x="60" y="132" font-size="54" font-weight="700" fill="#FFFFFF">Clavigil</text>
+      <text x="60" y="170" font-size="23" font-weight="600" fill="url(#accent)">Gouvernance du cycle de vie des identités</text>
+      <rect x="60" y="196" width="101" height="34" rx="17" fill="#FFFFFF" fill-opacity="0.09" stroke="url(#accent)" stroke-opacity="0.8"/><text x="110.5" y="218" text-anchor="middle" font-size="15" fill="#E6EEFA">OpenLDAP</text><rect x="173" y="196" width="101" height="34" rx="17" fill="#FFFFFF" fill-opacity="0.09" stroke="url(#accent)" stroke-opacity="0.8"/><text x="223.5" y="218" text-anchor="middle" font-size="15" fill="#E6EEFA">Keycloak</text><rect x="286" y="196" width="118" height="34" rx="17" fill="#FFFFFF" fill-opacity="0.09" stroke="url(#accent)" stroke-opacity="0.8"/><text x="345.0" y="218" text-anchor="middle" font-size="15" fill="#E6EEFA">PostgreSQL</text><rect x="416" y="196" width="84" height="34" rx="17" fill="#FFFFFF" fill-opacity="0.09" stroke="url(#accent)" stroke-opacity="0.8"/><text x="458.0" y="218" text-anchor="middle" font-size="15" fill="#E6EEFA">Python</text>
+    </g>
+  </g>
+</svg>
