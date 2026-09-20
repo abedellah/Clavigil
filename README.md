@@ -95,7 +95,7 @@ affirmation.
 
 ## Tests et CI
 
-20 tests (unitaires + intégration), dont une majorité de cas négatifs :
+26 tests (unitaires + intégration), dont une majorité de cas négatifs :
 un sortant n'obtient aucun droit, une règle SoD ne se déclenche pas sur une
 personne qui n'en détient qu'une moitié, une réexécution du provisioning ne
 crée pas de doublon (idempotence).
