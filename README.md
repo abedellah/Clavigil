@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Clavigil, gouvernance du cycle de vie des identités" width="100%">
+  <img src="assets/banner.svg?v=2" alt="Clavigil, gouvernance du cycle de vie des identités" width="100%">
 </p>
 
 # Clavigil — gouvernance des identités et des accès
